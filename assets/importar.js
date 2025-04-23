@@ -43,6 +43,10 @@ async function cargarGuias() {
     const canal = document.getElementById("filtro_canal").value;
     const controlado = document.getElementById("filtro_controlado").value;
 
+    // 1) Actualizo el enlace de exportación
+    const btn = document.getElementById("btnExportar");
+    btn.href = `index.php?accion=exportarExcel&canal=${encodeURIComponent(canal)}&fecha=${encodeURIComponent(fecha)}&controlado=${encodeURIComponent(controlado)}`;
+
     const params = new URLSearchParams({
         accion: "filtrar",
         fecha,
@@ -171,34 +175,5 @@ async function eliminarGuia(id) {
         }
     }
 }
-// document.getElementById("formEditarGuia").addEventListener("submit", async function (e) {
-//     e.preventDefault();
 
-//     const datos = {
-//         nro_guia: document.getElementById("edit_nro_guia").value,
-//         fecha: document.getElementById("edit_fecha").value,
-//         canal: document.getElementById("edit_canal").value,
-//         controlado: document.getElementById("edit_controlado").value
-//     };
-//     console.log(datos)
-//     try {
-//         const res = await fetch(`../Controlador/PaqueteControlador.php?accion=editarGuia`, {
-//             method: "POST",
-//             headers: { "Content-Type": "application/json" },
-//             body: JSON.stringify(datos) // sin incluir "accion" aquí
-//         });
-
-//         const data = await res.json();
-//         if (data.success) {
-//             Swal.fire("✅ Éxito", data.mensaje, "success");
-//             bootstrap.Modal.getInstance(document.getElementById("modalEditarGuia")).hide();
-//             cargarGuias(); // Recarga la tabla
-//         } else {
-//             Swal.fire("❌ Error", data.mensaje, "error");
-//         }
-//     } catch (err) {
-//         console.error(err);
-//         Swal.fire("❌ Error", "No se pudo editar la guía", "error");
-//     }
-// });
 

@@ -57,7 +57,12 @@ if (isset($_GET['accion'])) {
             require_once "Controlador/UsuariosControlador.php";
             $controlador = new UsuarioControlador();
             $controlador->gestionar();
-            break;  
+            break;
+        case 'exportarExcel':
+                require_once "Controlador/ExportarControlador.php";
+                $c = new ExportarControlador();
+                $c->exportarExcel();
+            break;      
         default:
             http_response_code(400);
             echo json_encode(["estado" => "error", "mensaje" => "Acción no válida"]);

@@ -241,20 +241,41 @@ class Paquetes {
             ];
         }
     }
-    
-    
-    
-    // Guardar log
-    // public function guardarLog($nroGuia, $canal, $observacion): void {
-    //     $date = mktime("d-n-y h:i:sa");
-    //     $stmt = $this->conn->prepare("INSERT INTO logs (nro_guia, canal, accion, fecha, usuario) VALUES (?, ?, ?)");
-    //     // $stmt->execute([$nroGuia, $canal, $observacion]);
-    //     $stmt->execute([
-    //         ':nro_guia' => $nroGuia,
-    //         ':canal' => $canal,
-    //         ':accion' => $observacion,
-    //         ':fecha' => $date,
-    //         ':usuario' => 'test'
-    //     ]);
-    // }
+    // Obtener todos los registros (sin filtros)
+    public function obtenerTodos() {
+        $query = "SELECT * FROM paquetes";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function obtenerDatosFiltrados($canal = null, $fecha = null) {
+        // Suponiendo que tienes una conexión PDO
+        $sql = "SELECT nro_guia, fecha, canal, controlado FROM paquetes WHERE 1=1";
+
+        // Agregar condiciones si hay filtros
+        if ($canal) {
+            $sql .= " AND canal = :canal";
+        }
+        if ($fecha) {
+            $sql .= " AND fecha = :fecha";
+        }
+
+        // Preparar la consulta
+        $stmt = $this->conn->prepare($sql);
+
+        // Vincular parámetros si los filtros están presentes
+        if ($canal) {
+            $stmt->bindParam(':canal', $canal);
+        }
+        if ($fecha) {
+            $stmt->bindParam(':fecha', $fecha);
+        }
+
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // Retornar los resultados
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

@@ -61,6 +61,18 @@
             <div class="col-md-3 d-flex align-items-end">
                 <button type="submit" class="btn btn-success">🔍 Aplicar filtros</button>
             </div>
+            <div class="col-md-3 d-flex align-items-end">
+            <?php
+              // conservá los filtros actuales para pasarlos al enlace
+              $canal  = $_GET['canal']  ?? '';
+              $fecha  = $_GET['fecha']  ?? '';
+              $control = $_GET['controlado'] ?? '';
+            ?>
+            <a class="btn btn-outline-success mb-3" id="btnExportar"
+              href="index.php?accion=exportarExcel&canal=<?= urlencode($canal) ?>&fecha=<?= urlencode($fecha) ?>&controlado=<?= urlencode($control) ?>">
+              📥 Exportar a Excel
+            </a>
+            </div>
         </form>
 
         <h4 class="mb-3">📋 Guías importadas</h4>

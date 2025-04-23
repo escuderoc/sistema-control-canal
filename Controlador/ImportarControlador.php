@@ -10,17 +10,22 @@ error_reporting(E_ALL);
 require_once(__DIR__ . '/../Modelo/Paquetes.php');
 
 require_once(dirname(__DIR__) . "/vendor/autoload.php");
+require_once dirname(__DIR__) . '/helpers/log_helpers.php';
+
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-class ImportacionControlador {
+class ImportacionControlador
+{
     private $modelo;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->modelo = new Paquetes();
     }
-    public function gestionar() {
+    public function gestionar()
+    {
         $accion = $_GET['accion'] ?? '';
-    
+
         switch ($accion) {
             case 'filtrar':
                 $this->filtrarGuias();
@@ -62,7 +67,7 @@ class ImportacionControlador {
                     ];
                 }
             }
-           
+
 
             if (count($paquetes) > 0) {
                 $modelo = new Paquetes();
@@ -70,26 +75,32 @@ class ImportacionControlador {
                 //  echo "<pre>";
                 // print_r($resultado);
                 // echo "</pre>";
-                if($resultado['success'] != true){
-                    registrarLog($_SESSION['usuario'],'insert guias',$resultado['mensaje']);
-                    echo json_encode(['success'=> false, 'mensaje' => $resultado["mensaje"]]);
+                if ($resultado['success'] != true) {
+                    registrarLog($_SESSION['usuario'], 'insert guias', $resultado['mensaje']);
+                    echo json_encode(['success' => false, 'mensaje' => $resultado["mensaje"]]);
 
                     exit;
                 }
                 // echo json_encode(['success' => true, 'mensaje' => "Se importaron $cantidad guias."]);
-                registrarLog($_SESSION['usuario'],'insert guias',$resultado['mensaje']);
-                echo json_encode(['success'=> true, 'mensaje'=>$resultado['mensaje']]); // Esto sí responde al frontend
+                $mensaje = $resultado['mensaje'];
+                $nrosGuia = array_map(fn($p) => $p['nro_guia'], $paquetes);
+                $listaNros = implode(', ', $nrosGuia);
+
+                registrarLog($_SESSION['usuario'], 'insert guias', ' | guías: ' . $listaNros);
+                // registrarLog($_SESSION['usuario'], 'insert guias', $mensaje. 'guias :'.$paquetes['nro_guia']);
+                echo json_encode(['success' => true, 'mensaje' => $resultado['mensaje']]); // Esto sí responde al frontend
             } else {
-                registrarLog($_SESSION['usuario'],'insert guias','No se encontraron datos válidos para importar.');
+                registrarLog($_SESSION['usuario'], 'insert guias', 'No se encontraron datos válidos para importar.');
                 echo json_encode(['success' => false, 'mensaje' => "No se encontraron datos válidos para importar."]);
             }
         } else {
-            echo json_encode(['success' => false , 'mensaje' => 'No se pudo procesar el archivo.']);
+            echo json_encode(['success' => false, 'mensaje' => 'No se pudo procesar el archivo.']);
         }
     }
-    
 
-    public function filtrarGuias() {
+
+    public function filtrarGuias()
+    {
         header("Content-Type: application/json");
 
         $filtros = [
@@ -107,4 +118,3 @@ class ImportacionControlador {
         }
     }
 }
-

@@ -53,7 +53,7 @@ class PaqueteControlador {
             try {
                 $resultado = $this->modelo->controlarPaquete($nroGuia);
                 echo json_encode($resultado);
-                registrarLog($_SESSION['usuario'],'Controlar guia: '.$nroGuia,'paquete controldo');
+                registrarLog($_SESSION['usuario'],'Controlar guia: '.$nroGuia,$resultado['mensaje']);
 
             } catch (Exception $e) {
                 http_response_code(500);

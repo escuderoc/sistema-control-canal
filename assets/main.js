@@ -48,7 +48,7 @@ function mostrarToast(tipo, titulo, texto,) {
     Toast.fire({
         icon: tipo,
         title: titulo,
-        text: texto
+        text: texto,
     });
 }
 

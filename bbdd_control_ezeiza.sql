@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-04-2025 a las 03:59:04
+-- Tiempo de generación: 23-04-2025 a las 03:32:04
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,17 +24,38 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `logs_control`
+-- Estructura de tabla para la tabla `logs`
 --
 
-CREATE TABLE `logs_control` (
+CREATE TABLE `logs` (
   `id` int(11) NOT NULL,
-  `nro_guia` varchar(50) NOT NULL,
-  `canal` varchar(20) NOT NULL,
-  `accion` varchar(20) NOT NULL,
-  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
-  `usuario` varchar(100) DEFAULT NULL
+  `accion` varchar(50) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `logs`
+--
+
+INSERT INTO `logs` (`id`, `accion`, `descripcion`, `usuario`, `fecha`) VALUES
+(1, 'Login', 'Usuario logeado', 'admin', '2025-04-22 22:52:48'),
+(2, 'Login', 'Usuario logeado', 'admin', '2025-04-22 22:52:57'),
+(3, 'Login', 'Usuario logeado', 'jose', '2025-04-22 23:29:54'),
+(4, 'Login', 'Usuario logeado', 'admin', '2025-04-22 23:35:50'),
+(5, 'create usuario', 'se creo un usuario pedro', 'desconocido', '2025-04-22 23:48:05'),
+(6, 'create usuario', 'se creo un usuario juan', 'desconocido', '2025-04-22 23:48:32'),
+(7, 'Login', 'Usuario logeado', 'admin', '2025-04-23 00:07:53'),
+(8, 'Update guia: Array', 'guia editada.', 'admin', '2025-04-23 00:08:07'),
+(9, 'Update guia: Array', 'guia editada.', 'admin', '2025-04-23 00:11:30'),
+(10, 'Update guia: ', 'guia editada.', 'admin', '2025-04-23 00:14:23'),
+(11, 'Update guia: 138', 'guia editada.', 'admin', '2025-04-23 00:16:20'),
+(12, 'Eliminar guia: 138', 'Guia eliminada correctamente', 'admin', '2025-04-23 00:16:35'),
+(13, 'controlar paquete', 'paquete controldo', 'admin', '2025-04-23 00:16:56'),
+(14, 'Controlar guia: 143', 'paquete controldo', 'admin', '2025-04-23 00:19:16'),
+(15, 'Controlar guia: 143', 'paquete controldo', 'admin', '2025-04-23 00:19:27'),
+(16, 'delete usuario', 'se elimini el usuario_id 6', 'admin', '2025-04-23 00:19:56');
 
 -- --------------------------------------------------------
 
@@ -56,36 +77,48 @@ CREATE TABLE `paquetes` (
 --
 
 INSERT INTO `paquetes` (`id`, `fecha`, `guiasmad`, `nro_guia`, `canal`, `controlado`) VALUES
-(1, '2024-07-28', 'P6097115200', 'MLAR000000031EX', 'rojo', 1),
-(2, '2024-07-29', 'P6097115201', 'MLAR000000032EX', 'verde', 0),
-(3, '2024-07-30', 'P6097115202', 'MLAR000000033EX', 'rojo', 0),
-(4, '2024-07-31', 'P6097115203', 'MLAR000000034EX', 'verde', 1),
-(5, '2024-07-28', 'P6097115200', 'MLAR000000031EX', 'rojo', 0),
-(6, '2024-07-29', 'P6097115201', 'MLAR000000032EX', 'verde', 0),
-(7, '2024-07-30', 'P6097115202', 'MLAR000000033EX', 'rojo', 0),
-(8, '2024-07-31', 'P6097115203', 'MLAR000000034EX', 'verde', 0),
-(9, '2024-07-28', 'P6097115200', 'MLAR000000031EX', 'rojo', 0),
-(10, '2024-07-29', 'P6097115201', 'MLAR000000032EX', 'verde', 0),
-(11, '2024-07-30', 'P6097115202', 'MLAR000000033EX', 'rojo', 0),
-(12, '2024-07-31', 'P6097115203', 'MLAR000000034EX', 'verde', 0),
-(13, '2024-07-28', 'P6097115200', 'MLAR000000031EX', 'rojo', 0),
-(14, '2024-07-29', 'P6097115201', 'MLAR000000032EX', 'verde', 0),
-(15, '2024-07-30', 'P6097115202', 'MLAR000000033EX', 'rojo', 0),
-(16, '2024-07-31', 'P6097115203', 'MLAR000000034EX', 'verde', 0),
-(17, '2024-07-28', 'P6097115200', 'MLAR000000031EX', 'rojo', 0),
-(18, '2024-07-29', 'P6097115201', 'MLAR000000032EX', 'verde', 0),
-(19, '2024-07-30', 'P6097115202', 'MLAR000000033EX', 'rojo', 0),
-(20, '2024-07-31', 'P6097115203', 'MLAR000000034EX', 'verde', 0);
+(60, '2025-04-16', '100', '135', 'verde', 0),
+(64, '2025-04-22', '100', '139', 'verde', 1),
+(66, '2025-04-22', '100', '141', 'verde', 1),
+(67, '2025-04-22', '100', '142', 'amarillo', 0),
+(68, '2025-04-22', '100', '143', 'rojo', 1),
+(69, '2025-04-22', '100', '144', 'verde', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(55) NOT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `rol` varchar(20) DEFAULT 'usuario',
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `password`, `rol`, `fecha_registro`) VALUES
+(2, 'cristian', 'admin', '$2y$10$bt1nUDVDdGBzb.mkBZEeGuZRm3nAvqfv3xXUnsDA31E4mg/axOT2K', 'admin', '2025-04-22 15:54:58'),
+(3, 'jose', 'jose', '$2y$10$9cUuPJbW9XssvsaP4iI7tu0fgBdA4SYA84RLR.dfAnj6ReYsZGvAm', 'usuario', '2025-04-22 16:06:38'),
+(4, 'pedro', 'pedro', '$2y$10$VYrxSSmpKUFIEyv08tMKJeOx5VTfK/4Dy.KoIIel/FaVvD/Mh7gmW', 'usuario', '2025-04-22 23:42:43');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `logs_control`
+-- Indices de la tabla `logs`
 --
-ALTER TABLE `logs_control`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_usuario` (`usuario`),
+  ADD KEY `idx_accion` (`accion`);
 
 --
 -- Indices de la tabla `paquetes`
@@ -94,20 +127,33 @@ ALTER TABLE `paquetes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `usuario` (`usuario`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `logs_control`
+-- AUTO_INCREMENT de la tabla `logs`
 --
-ALTER TABLE `logs_control`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `paquetes`
 --
 ALTER TABLE `paquetes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

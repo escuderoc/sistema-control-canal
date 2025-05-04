@@ -3,6 +3,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de Paquetes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -21,7 +22,7 @@
         <div class="row text-center">
             <div class="col">
             <div id="totales-general" class="mb-3">
-                <strong>Totales:</strong> <span id="contador-totales"></span> / <span id="contador-controlados"></span>
+                <h4><strong>Totales:</strong> <span id="contador-totales"></span> / <span id="contador-controlados"></span></h4>
             </div>
             </div>
         </div>
@@ -29,7 +30,7 @@
             <div class="col">
                 <div class="card border-success mb-3">
                     <div class="card-body">
-                        <h5 class="card-title text-success">Canal Verde</h5>
+                        <h5 class="card-title text-success">Can Verde</h5>
                         <p class="card-text fs-4" id="canal-verde"><strong></strong></p>
                     </div>
                 </div>
@@ -37,7 +38,7 @@
             <div class="col">
                 <div class="card border-warning mb-3">
                     <div class="card-body">
-                        <h5 class="card-title text-warning">Canal Amarillo</h5>
+                        <h5 class="card-title text-warning">Can Amarillo</h5>
                         <p class="card-text fs-4" id="canal-amarillo"><strong></strong></p>
                     </div>
                 </div>
@@ -45,7 +46,7 @@
             <div class="col">
                 <div class="card border-danger mb-3">
                     <div class="card-body">
-                        <h5 class="card-title text-danger">Canal Rojo</h5>
+                        <h5 class="card-title text-danger">Can Rojo</h5>
                         <p class="card-text fs-4" id="canal-rojo"><strong></strong></p>
                     </div>
                 </div>

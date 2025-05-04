@@ -133,6 +133,6 @@
   </div>
 </div>
 
-    <script src="/SISTEMA_CONTROL_CANAL/assets/importar.js"></script>
+    <script src="./assets/importar.js"></script>
 </body>
 </html>

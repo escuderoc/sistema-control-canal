@@ -29,7 +29,7 @@ if (isset($_GET['accion'])) {
             break;
         case 'importarExcel':
         case 'filtrar':
-            require_once "Controlador/importarControlador.php";
+            require_once "Controlador/ImportarControlador.php";
             $controlador = new ImportacionControlador();
             $controlador->gestionar(); // Una función que decide qué hacer según la acción
             break;
@@ -77,7 +77,7 @@ if (isset($_GET['vista'])) {
     $archivoVista = __DIR__ . "/Vista/{$vista}.php";
 
     // ❗❗ PROTECCIÓN DE VISTA USUARIOS ❗❗
-    if ($vista === 'usuarios' && $_SESSION['user_role'] !== 'admin') {
+    if ($vista === 'Usuarios' && $_SESSION['user_role'] !== 'admin') {
         header('Location: index.php');
         exit;
     }

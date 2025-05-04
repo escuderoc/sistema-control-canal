@@ -93,6 +93,6 @@
   </div>
 </div>
 
-<script src="Assets/usuarios.js"></script>
+<script src="assets/usuarios.js"></script>
 </body>
 </html>

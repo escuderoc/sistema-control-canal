@@ -33,16 +33,21 @@ async function obtenerTotalesPorCanal() {
 
 
 // Mostrar toast con SweetAlert
-function mostrarToast(tipo, titulo, texto,) {
+function mostrarToast(tipo, titulo, texto,color) {
     const Toast = Swal.mixin({
         toast: true,
-        position: "center",
+        position: "top",
         showConfirmButton: false,
-        timer: 1000,
+        timer: 1500,
         timerProgressBar: true,
+        target: "body",
+        background:color,
         didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
+            toast.style.fontSize = '1.5rem';
+            toast.style.padding = '1.5rem';
+            toast.style.width = '450px';
         }
     });
     Toast.fire({
@@ -70,24 +75,34 @@ document.querySelector("#form-controlar").addEventListener("submit", async (e) =
         });
         var inputGuia = document.getElementById('nro_guia')
         const data = await response.json();
-        // console.log(data);
-
+         console.log(data.canal);
+        var color =""
+        if(data.canal == "verde"){
+            color = "#98d883";
+        }if(data.canal == "rojo"){
+            color = "#d88392";
+        }if(data.canal == "amarillo"){
+            color = "#eadd5c";
+        }
+        // else{
+        //     color = "#777670";
+        // }
         switch (data.estado) {
             case "ya_controlado":
-                mostrarToast("warning", `Guía: ${data.nro_guia}`, `Ya fue controlada. Canal: ${data.canal}`);
+                mostrarToast("warning", `Guía: ${data.nro_guia}`, `Ya fue controlada. Canal: ${data.canal}`,color);
                 console.log(data)
                 inputGuia.value='';
                 inputGuia.focus();
                 break;
             case "ok":
-                mostrarToast("success", `Guía: ${data.nro_guia}`, `Controlado canal: ${data.canal}`);
+                mostrarToast("success", `Guía: ${data.nro_guia}`, `Controlado canal: ${data.canal}`,color);
                 await cargarTotalesGenerales();
                 await obtenerTotalesPorCanal();
                 inputGuia.value='';
                 inputGuia.focus();
                 break;
             case "error":
-                mostrarToast("error", "Guía no encontrada", data.mensaje || "");
+                mostrarToast("error", "Guía no encontrada", data.mensaje || "",color);
                 inputGuia.value='';            
                 inputGuia.focus();
                 break;
@@ -99,7 +114,7 @@ document.querySelector("#form-controlar").addEventListener("submit", async (e) =
 
     } catch (error) {
         console.error("Error al controlar el paquete:", error);
-        mostrarToast("error", "Error", "Ocurrió un error al enviar los datos.");
+        mostrarToast("error", "Error", "Ocurrió un error al enviar los datos.",color);
     }
 });
 
